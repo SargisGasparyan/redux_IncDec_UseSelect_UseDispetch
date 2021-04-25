@@ -1,23 +1,21 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import {inc,dec,rand} from '../action'
-import {bindActionCreators} from 'redux'
-const Counter=({counter,inc,dec,rand})=>{
+import {useSelector} from 'react-redux'
+import {useDispatch} from 'react-redux'
+
+const Counter=()=>{
+    const counter = useSelector(state => state)
+    const dispatch = useDispatch()
+
+  
     return(
         <div>
             <h2>{counter}</h2>
-            <button onClick={inc} className='btn btn-primary btn-lg'>INC</button>
-            <button onClick={dec} className='btn btn-primary btn-lg'>DEC</button>
-            <button onClick={rand} className='btn btn-primary btn-lg'>RAND</button>
+            <button onClick={()=>dispatch(inc())} className='btn btn-primary btn-lg'>INC</button>
+            <button onClick={()=> dispatch(dec())} className='btn btn-primary btn-lg'>DEC</button>
+            <button onClick={()=> dispatch(rand())} className='btn btn-primary btn-lg'>RAND</button>
         </div>
     )
 }
-const mapStateToProps=(state)=>{
-    return{
-        counter:state
-    }
-}
-const mapDispatchToProps=(dispatch)=>{
-    return bindActionCreators({inc,dec,rand},dispatch)
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Counter)
+
+export default Counter
